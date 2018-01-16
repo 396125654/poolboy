@@ -159,13 +159,13 @@ handle_cast({checkin, Pid}, State = #state{monitors = Monitors}) ->
 handle_cast({cancel_waiting, CRef}, State) ->
     case ets:match(State#state.monitors, {'$1', CRef, '$2'}) of
         [[Pid, MRef]] ->
-            demonitor(MRef, [flush]),
+            demonitor(MRef),
             true = ets:delete(State#state.monitors, Pid),
             NewState = handle_checkin(Pid, State),
             {noreply, NewState};
         [] ->
             Cancel = fun({_, Ref, MRef}) when Ref =:= CRef ->
-                             demonitor(MRef, [flush]),
+                             demonitor(MRef),
                              false;
                         (_) ->
                              true
