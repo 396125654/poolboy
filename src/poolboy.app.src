@@ -1,5 +1,5 @@
 {application, poolboy, [
-    {description, "A hunky Erlang worker pool factory"},
+    {description, "A hunky Erlang worker pool factory with erlang/otp 20.3"},
     {vsn, git},
     {applications, [kernel, stdlib]},
     {registered, [poolboy]},
